@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+   
+
+
+    <title>Howdy</title>
+
+  
+ 
+
+   
+    <script>
+        $(document).ready(function () {
+
+            var cartAmount = 0;
+            var cartItems = [];
+            
+            $('.btn').on('click', function() {
+                $('#productModal').modal('show');
+            });
+
+            $('.add-to-cart').on('click', function () {
+                // Get product details from the modal
+                var productName = $('#productName').text();
+                var productPrice = parseFloat($('#productPrice').text());
+                var quantity = parseInt($('.quantity').text());
+
+                // Add the selected quantity of items to the cart
+                for (var i = 0; i < quantity; i++) {
+                    // Simulate a unique ID for each item
+                    var itemId = cartItems.length + 1;
+
+                    // Add item to cart
+                    cartItems.push({
+                        id: itemId,
+                        name: productName,
+                        price: productPrice
+                    });
+                }
+
+                // Increment the cart amount
+                cartAmount += quantity;
+
+                // Update the cart icon with the new amount
+                updateCartIcon();
+
+                // Append the item to the cart dropdown
+                addItemToDropdown(productName, productPrice, quantity);
+
+                // Close the product modal
+                $('#productModal').modal('hide');
+
+                // Optionally, you can display a message or perform additional actions here
+                // Display a success message
+                showToast('Item added to the cart!');
+            });
+
+            // Function to update the cart icon
+            function updateCartIcon() {
+                $('#cartAmountTopRight').text(cartAmount);
+            }
+
+            // Function to increase the quantity in the modal
+            function increaseQuantity(element) {
+                var quantityElement = $(element).siblings('.quantity');
+                var quantity = parseInt(quantityElement.text()) || 1;
+                quantityElement.text(quantity + 1);
+            }
+
+            // Function to decrease the quantity in the modal
+            function decreaseQuantity(element) {
+                var quantityElement = $(element).siblings('.quantity');
+                var quantity = parseInt(quantityElement.text()) || 1;
+                if (quantity > 1) {
+                    quantityElement.text(quantity - 1);
+                }
+            }
+
+            // Function to add an item to the cart dropdown
+            function addItemToDropdown(itemName, itemPrice, quantity) {
+                var itemIndex = cartItems.length; // index of the last added item
+                $('#cartDropdown .cart-content').append(
+                    '<div class="cart-item" data-item-index="' + itemIndex + '">' +
+                    '<div class="cart-item-details">' +
+                    '<h4>' + itemName + '</h4>' +
+                    '<p>Quantity: ' + quantity + ' - $' + (itemPrice * quantity).toFixed(2) + '</p>' +
+                    '</div>' +
+                    '<div class="clear-item" data-item-index="' + itemIndex + '">Clear</div>' +
+                    '</div>'
+                );
+            }
+
+            // Function to display a Bootstrap 5 toast
+            function showToast(message) {
+                var toast = new bootstrap.Toast(document.getElementById('myToast'), {
+                    autohide: true,
+                    delay: 2000, // 2 seconds
+                });
+                var toastBody = document.querySelector('.toast-body');
+                toastBody.innerHTML = message;
+                toast.show();
+            }
+
+            // Click event for cart amount or icon
+            $('#cartAmount, .fa-shopping-cart').on('click', function () {
+                // Toggle the cart dropdown
+                $('#cartDropdown').toggle();
+            });
+
+            // Event to close the modal and reset quantity when hidden
+            $('#productModal').on('hidden.bs.modal', function () {
+                $('.quantity').text(1); // Reset quantity to 1 when modal is hidden
+            });
+
+            // Event to clear an item from the cart
+            $(document).on('click', '.clear-item', function () {
+                // Get the item index from the data attribute
+                var itemIndex = $(this).data('item-index');
+
+                // Remove the item from the cart
+                removeItemFromCart(itemIndex);
+            });
+
+            // Function to remove an item from the cart
+            function removeItemFromCart(itemIndex) {
+                // Remove the item from the cart content
+                $('#cartDropdown .cart-content .cart-item[data-item-index="' + itemIndex + '"]').remove();
+
+                // Update the cart amount
+                cartAmount = $('#cartDropdown .cart-content .cart-item').length;
+                updateCartIcon();
+            }
+        });
+    </script>
+    
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+    <header>
+        <div class="nav-1 main-navbar shadow-sm sticky-top">
+            <div class="top-navbar">
+                <div class="logo-1 container-fluid">
+                    <div class="c.1 row">
+                        <div class="col-md-2  d-sm-block
+                        col-sm-2 d-md-block d-lg-block">
+                            <img class="logo-png" src="logo.png" alt="">
+                        </div>
+                        <div class="search-1 search-bar  myauto col-md-5">
+                            <form role="search">
+                                <div class="input-group text-white ">
+                                    <input type="search" placeholder="Search your product" style="    background: none;"
+                                        class="form-control search-nav">
+                                    <button class="btn" style="  background: none;border-color: #fdfbfb;" type="submit">
+                                        <i class="fa fa-search " style="color: white;"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="icon-1 icons col-md-5 myauto">
+                            <ul class="nav justify-content-end">
+
+
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" href="#"  role="button"
+                                        >
+                                        <i class="fa fa-user"></i>
+                                    </a>
+                                    
+                                </li>
+
+                                <li class="nav-item myauto">
+                                    <div class="d-flex text-white">
+                                        <div class="position-relative">
+                                            <a class="nav-link" href="#" id="cartIcon">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                <span class="cart-count" id="cartAmountTopRight">0</span>
+                                            </a>
+                                            <!-- <p class="cart-price-box " id="cartAmountTopRight">0</p> -->
+                                        
+                                            <!-- Cart Dropdown -->
+                                            <div id="cartDropdown" class="cart-dropdown">
+                                                <div class="cart-content"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        
+                                        
+                                        <!-- Toast container -->
+                                        <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x">
+                                            <div id="myToast" class="toast bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
+                                                <div class="toast-body text-white">
+                                                    Item(s) added successfully
+                                                </div>
+                                            </div>
+                                        </div>
+    
+
+
+
+
+
+                                        <!-- Product Modal -->
+                                        <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="productModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <img class="product-image" src="desperado.jpg"
+                                                                    alt="Product Image">
+                                                            </div>
+                                                            <div class="col-md-6 sty">
+                                                                <h3 id="productName">Crispy Bae</h3>
+                                                                <p>Crispy fried chicken with chipotle sauce..</p>
+                                                                <h3>Category</h3>
+                                                                <p>Burger</p>
+                                                                <h3>PKR</h3>
+                                                                <p id="productPrice">799</p>
+                                                                <div class="counter-btns">
+                                                                    <button class="btn btn-secondary"
+                                                                        onclick="decreaseQuantity(this)">-</button>
+                                                                    <span class="quantity">1</span>
+                                                                    <button class="btn btn-secondary"
+                                                                        onclick="increaseQuantity(this)">+</button>
+                                                                </div>
+                                                                <button class=" btn btn-success add-to-cart">Add
+                                                                    to Cart</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <!-- <div id="cartDropdown" class="cart-dropdown">
+                                            <div class="cart-content"></div>
+                                        </div> -->
+
+
+                                        <script>
+                                            function increaseQuantity(element) {
+                                                var quantityElement = $(element).siblings('.quantity');
+                                                var quantity = parseInt(quantityElement.text()) || 1;
+                                                quantityElement.text(quantity + 1);
+                                            }
+
+                                            function decreaseQuantity(element) {
+                                                var quantityElement = $(element).siblings('.quantity');
+                                                var quantity = parseInt(quantityElement.text()) || 1;
+                                                if (quantity > 1) {
+                                                    quantityElement.text(quantity - 1);
+                                                }
+                                            }
+                                        </script>
+                                        
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid bg-white">
+                    <a class="navbar-brand d-block d-sm-block d-md-none d-lg-none" href="#">
+                        MENU
+                    </a>
+                    <button class="navbar-toggler " type="button" data-bs-toggle="collaps "
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="membership.html">MEMBERSHIP</a>
+                            </li>
+                          
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">CONTACT</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <br><br>
+
+    <!-- /next two div in which image or info -->
+    <main>
+
+        <div class=" product-container ">
+            <!-- Left image container -->
+            <div class="scroll-image ">
+                <img src="img-1.jpeg" class="s-1" alt="Product Image">
+            </div>
+
+            <!-- Right product information container -->
+            <div class="row">
+                <div class="scrollable-section mb-5 mx-1 scroll-1">
+                    <div class="first-head ">
+                        <h4 class="head">Latest Deals and Promotions</h4>
+                    </div>
+                    <br>
+
+                    <!-- Product 1 -->
+                    <div class="product-item">
+                        <ul class=" mb-4">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="desperado.jpg" class="" alt=""
+                                        style="width: 70px; height: 70px; border-radius: 10px; margin-bottom: 18px; margin-left: -20px;">
+                                    <div class="ms-3">
+                                        <p class="fw-bold mb-1 mx-2">Surprise Treets</p>
+                                        <p class="text-muted mb-0 mx-2">Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit.</p>
+                                        <p class="mx-2" style="color: #feb902;font-weight: 700; padding-top: 10px;">Rs
+                                            1650
+
+                                            <!-- <button type="button" class="btn  btn-rounded head-2" >ADD TO CART</button> -->
+                                            <button type="button" id="btn" class="btn i-f btn-rounded ps-3"
+                                            data-bs-toggle="modal">ADD TO
+                                            CART</button>
+                                        </p>
+
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="desperado.jpg" class="" alt=""
+                                        style="width: 70px; height: 70px; border-radius: 10px; margin-bottom: 18px; margin-left: -20px;">
+                                    <div class="ms-3">
+                                        <p class="fw-bold mb-1 mx-2">Surprise Treets</p>
+                                        <p class="text-muted mb-0 mx-2">Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit.</p>
+                                        <p class="mx-2" style="color: #feb902;font-weight: 700; padding-top: 10px;">Rs
+                                            1650
+                                            <button type="button" id="btn" class="btn i-f btn-rounded ps-3"
+                                                data-bs-toggle="modal">ADD TO
+                                                CART</button>
+                                            <!-- <button type="button" class="btn btn-rounded head-2" >ADD TO CART</button> -->
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="desperado.jpg" class="" alt=""
+                                        style="width: 70px; height: 70px; border-radius: 10px; margin-bottom: 18px; margin-left: -20px;">
+                                    <div class="ms-3">
+                                        <p class="fw-bold mb-1 mx-2">Surprise Treets</p>
+                                        <p class="text-muted mb-0mx-2">Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit.</p>
+                                        <p class="mx-2" style="color: #feb902;font-weight: 700; padding-top: 10px;">Rs
+                                            1650
+                                            <button type="button" id="btn" class="btn i-f btn-rounded ps-3"
+                                                data-bs-toggle="modal">ADD TO
+                                                CART</button>
+                                            <!-- <button type="button" class="btn  btn-rounded head-2" >ADD TO CART</button> -->
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="desperado.jpg" class="" alt=""
+                                        style="width: 70px; height: 70px; border-radius: 10px; margin-bottom: 18px; margin-left: -20px;">
+                                    <div class="ms-3">
+                                        <p class="fw-bold mb-1 mx-2">Surprise Treets</p>
+                                        <p class="text-muted mb-0 mx-2">Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit.</p>
+                                        <p class="mx-2" style="color: #feb902;font-weight: 700; padding-top: 10px;">Rs
+                                            1650
+                                            <button type="button" id="btn" class="btn i-f btn-rounded ps-3"
+                                                data-bs-toggle="modal">ADD TO
+                                                CART</button>
+                                            <!-- <button type="button" class="btn btn-rounded head-2" >ADD TO CART</button> -->
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="desperado.jpg" class="" alt=""
+                                        style="width: 70px; height: 70px; border-radius: 10px; margin-bottom: 18px; margin-left: -20px;">
+                                    <div class="ms-3">
+                                        <p class="fw-bold mb-1 mx-2">Surprise Treets</p>
+                                        <p class="text-muted mb-0 mx-2">Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit.</p>
+                                        <p class="mx-2" style="color: #feb902;font-weight: 700; padding-top: 10px;">Rs
+                                            1650
+                                            <button type="button" id="btn" class="btn i-f btn-rounded ps-3"
+                                                data-bs-toggle="modal">ADD TO
+                                                CART</button>
+                                            <!-- <button type="button" class="btn btn-rounded head-2" >ADD TO CART</button> -->
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="desperado.jpg" class="" alt=""
+                                        style="width: 70px; height: 70px; border-radius: 10px; margin-bottom: 18px; margin-left: -20px;">
+                                    <div class="ms-3">
+                                        <p class="fw-bold mb-1 mx-2">Surprise Treets</p>
+                                        <p class="text-muted mb-0 mx-2">Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit.</p>
+                                        <p class="mx-2" style="color: #feb902;font-weight: 700; padding-top: 10px;">Rs
+                                            1650
+                                            <button type="button" id="btn" class="btn i-f btn-rounded ps-3"
+                                                data-bs-toggle="modal">ADD TO
+                                                CART</button>
+                                            <!-- <button type="button" class="btn btn-rounded head-2" >ADD TO CART</button> -->
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <!-- Add more products as needed -->
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 3rd poster -->
+        <br>
+        <div class="product-containerr b-1 baner-1">
+            <div class="product-image ">
+                <img src="3rd.png" alt="Product Image">
+            </div>
+            <div class="product-details">
+                <p class="text-white pt-2">100% NATURAL QUALITY ORGANIC PRODUCT</p>
+                <p class="text-white bs-1">See Our Latest Discounted Products From Here And Get A Special
+                    Discount Product</p>
+            </div>
+            <button type="button" id="btn" class="btn add-to-cart-button btn-rounded ps-3"
+            data-bs-toggle="modal">ADD TO
+            CART</button>
+            <!-- <button type="button" class="btn" data-bs-toggle="modal">
+                Add to Cart
+             </button> -->
+        </div>
+
+
+
+        <!-- products with image 4rth -->
+        <div class="container pro-info">
+            <br>
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s"
+                style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+
+                <h1 class="pro-infoo">Featured Categories</h1>
+                <p class="text-muted forth-para info-2">Choose your necessory products from this feature
+                    categories</p>
+            </div>
+            <br>
+        </div>
+
+        <div class="flex-container flex-1">
+            <div class="flex-item">
+                <div class="d-flex align-items-center">
+                    <img src="png1.png" alt="" style="width: 50px; height: 50px" class="rounded-circle">
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">Burger</p>
+                        <p class="text-muted mb-0">Choose your necessory products from this feature categories</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-item">
+                <div class="d-flex align-items-center">
+                    <img src="png2.png" alt="" style="width: 50px; height: 50px" class="rounded-circle">
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">Pizza</p>
+                        <p class="text-muted mb-0">Choose your necessory products from this feature categories</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-item">
+                <div class="d-flex align-items-center">
+                    <img src="png3.png" alt="" style="width: 50px; height: 50px" class="rounded-circle">
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">BrbQ</p>
+                        <p class="text-muted mb-0">Choose your necessory products from this feature categories</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-item">
+                <div class="d-flex align-items-center">
+                    <img src="png5.jpg" alt="" style="width: 50px; height: 50px" class="rounded-circle">
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">Snaks</p>
+                        <p class="text-muted mb-0">Choose your necessory products from this feature categories</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-item">
+                <div class="d-flex align-items-center">
+                    <img src="png5.png" alt="" style="width: 50px; height: 50px" class="rounded-circle">
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">Sandwich</p>
+                        <p class="text-muted mb-0">Choose your necessory products from this feature categories</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-item">
+                <div class="d-flex align-items-center">
+                    <img src="png6.png" alt="" style="width: 60px; height: 50px" class="rounded-circle">
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">Sweet</p>
+                        <p class="text-muted mb-0">Choose your necessory products from this feature categories</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+
+        <!-- card -->
+
+        <div class="container ">
+            <br>
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s"
+                style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+
+                <h1 class="pro-info">Popular Products</h1>
+                <p class="text-muted info-2 b-2">See all our popular products in this week</p>
+            </div>
+            <br>
+        </div>
+
+        <!-- cards -->
+
+        <div class="flexx-container flex-1" style="
+        margin-left: 3%;">
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                                    <!-- <button type="button" id="btn2" class="btn btn1 btn-rounded ps-3 f-b"
+                                    data-bs-toggle="modal"><i class="f-s fa-solid fa-plus"></i></button> -->
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f b-ff btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f b-ff btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f b-ff btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f b-ff btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 7">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f b-ff btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 8">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f b-ff btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+
+        <!-- 5th poster -->
+
+        <div class="product-containerr-5 baner-2">
+
+            <div class="product-details-5">
+                <p class="product-5-para pt-2">QUICK DELIVERY <br>TO YOUR
+                    HOME</p>
+                <p class="text-white product-5">Lorem ipsum dolor sit amet, consectetur <br> adipisicing elit.
+                    Dolorem voluptatem laborum aspernatur veritatis dignissimos! Odit! adipisicing elit. Dolorem
+                    voluptatem Odit!</p>
+                <button id="btn" class="btn add-to-cart-button-5 ps-3">ADD TO CART</button>
+            </div>
+
+            <div class="product-image-5 baner-2-img">
+                <img src="5th.png" alt="Product Image">
+            </div>
+        </div>
+
+        <!-- card-2 -->
+
+        <div class="container ">
+            <br>
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s"
+                style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+
+                <h1 class="pro-infoo">All Products</h1>
+                <p class="text-muted info-2 f-3">See all our popular products in this week</p>
+            </div>
+            <br>
+        </div>
+
+        <!-- 6th product -->
+
+        <div class="flexx-container flex-1" style="
+        margin-left: 3%;">
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 7">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 8">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+
+        <div class="flexx-container flex-1" style="
+        margin-left: 3%;">
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 6">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 7">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex-itemm">
+                <div class="card">
+                    <img src="burger-1.png" class="card-img-top" alt="Image 8">
+                    <div class="card-body">
+                        <h5 class="card-title">Volconda Cheese
+                            <a href="#" class="btn b-f btn-primary" style=" background-color:  #fc0537;"><i
+                                    class="fa-solid fa-plus" style="color: #f3f4f7;"></i></a>
+                        </h5>
+                        <p class="card-text">Mutton Doubleton and Stuffed <br> Cheese patty Fun</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+
+        <!-- Plans -->
+
+        <!-- <div class="container Membership-1">
+            <br>
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s"
+                style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+
+                <h1 class="">Membership Plans</h1>
+            </div>
+            <br>
+        </div> -->
+
+        <!-- Membership plas -->
+
+        <!-- <div class="container-fluid mx-4 card-1">
+            <div class="row justify-content-md-center">
+                <div class="membership-plan col-12 col-lg-3 mb-3">
+                    <h2 class="plan-heading basic">Basic</h2>
+                    <p class="plan-price">500</p>
+                    <p style="font-weight: 700; font-size: x-large;">PER MONTH</p>
+                    <ul class="plan-benefits">
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                    </ul>
+                    <button class="add-to-cart-btn">
+                        <p class="sm">Add to Cart</p>
+                    </button>
+                </div>
+
+                <div class="membership-plan col-12 col-lg-3 mb-3">
+                    <h2 class="plan-heading standard">Standard</h2>
+                    <p class="plan-price">700</p>
+                    <p style="font-weight: 700; font-size: x-large;">PER MONTH</p>
+                    <ul class="plan-benefits">
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                    </ul>
+                    <button class="add-to-cart-btn">
+                        <p class="sm">Add to Cart</p>
+                    </button>
+                </div>
+
+                <div class="membership-plan col-12  col-lg-3 mb-3">
+                    <h2 class="plan-heading premier">Premier</h2>
+                    <p class="plan-price" style="color: #feb902;">900</p>
+                    <p style="font-weight: 700; font-size: x-large;">PER MONTH</p>
+                    <ul class="plan-benefits">
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                    </ul>
+                    <button class="add-to-cart-btn">
+                        <p class="sm">Add to Cart</p>
+                    </button>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- last-banner -->
+
+        <div class=" d-none d-sm-block">
+            <img src="last banner.jpg" class="last" alt="">
+        </div>
+
+        <!-- footer -->
+
+        <footer class="py-4 f-l text-white text-center">
+
+            <div class="container">
+                <!-- Footer -->
+                <footer class="text-center text-lg-start  ">
+                    <!-- Section: Social media -->
+
+
+                    <!-- Section: Links  -->
+                    <section class="">
+                        <div class="container text-center text-md-start mt-5">
+                            <!-- Grid row -->
+
+                            <div class="row mt-3">
+                                <!-- Grid column -->
+                                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                                    <!-- Content -->
+                                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                                        <!-- Links -->
+                                        <h6 class=" text-dark mb-4" style="font-weight: 700;">
+                                            Support
+                                        </h6>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">Home</a>
+                                        </p>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">work</a>
+                                        </p>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">element</a>
+                                        </p>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">contact</a>
+                                        </p>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">blog</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+
+                                <!-- Grid column -->
+
+                                <!-- Grid column -->
+
+                                <!-- Grid column -->
+                                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                                    <!-- Links -->
+                                    <h6 class=" text-dark mb-4" style="font-weight: 600;">
+                                        Accounts
+                                    </h6>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">eGrappler.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">greepit.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">wordpress.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">themeforest.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">Free vectors icons</a>
+                                    </p>
+                                </div>
+                                <!-- Grid column -->
+                                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                                    <h6 class=" text-dark  mb-4" style="font-weight: 600;">
+                                        Quick Links
+                                    </h6>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">eGrappler.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">greepit.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">wordpress.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">themeforest.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">Free vectors icons</a>
+                                    </p>
+                                </div>
+
+
+                                <!-- Grid column -->
+                                <div class="col-md-4 col-lg-3 col-xl-4 mx-auto mb-md-0 mb-4">
+                                    <!-- Links -->
+                                    <h6 class="foot text-dark mb-4" style="font-weight: 600;">Download App</h6>
+                                    <p class="text-muted f-p">Save $3 With App & New User Only</p>
+
+                                    <div class="container-footer pb-0 col-12 col-md-8 col-lg-8 mx-auto">
+                                        <!-- Section: Social media -->
+                                        <section class="mb-4 justify-content-between">
+                                            <!-- Facebook -->
+                                            <img src="qr-code.png" class="card-img-top-f" alt="Image 4">
+
+                                            <!-- Twitter -->
+                                            <img src="apps.png" class="card-img-top-f" alt="Image 4">
+
+
+                                            <!-- Section: Social media -->
+                                        </section>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Section: Links  -->
+                    <!-- Copyright -->
+                </footer>
+                <!-- Footer -->
+            </div>
+        </footer>
+
+
+
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

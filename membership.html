@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+   
+
+
+    <title>Howdy</title>
+
+  
+ 
+
+   
+    <script>
+        $(document).ready(function () {
+
+            var cartAmount = 0;
+            var cartItems = [];
+            
+            $('.btn').on('click', function() {
+                $('#productModal').modal('show');
+            });
+
+            $('.add-to-cart').on('click', function () {
+                // Get product details from the modal
+                var productName = $('#productName').text();
+                var productPrice = parseFloat($('#productPrice').text());
+                var quantity = parseInt($('.quantity').text());
+
+                // Add the selected quantity of items to the cart
+                for (var i = 0; i < quantity; i++) {
+                    // Simulate a unique ID for each item
+                    var itemId = cartItems.length + 1;
+
+                    // Add item to cart
+                    cartItems.push({
+                        id: itemId,
+                        name: productName,
+                        price: productPrice
+                    });
+                }
+
+                // Increment the cart amount
+                cartAmount += quantity;
+
+                // Update the cart icon with the new amount
+                updateCartIcon();
+
+                // Append the item to the cart dropdown
+                addItemToDropdown(productName, productPrice, quantity);
+
+                // Close the product modal
+                $('#productModal').modal('hide');
+
+                // Optionally, you can display a message or perform additional actions here
+                // Display a success message
+                showToast('Item added to the cart!');
+            });
+
+            // Function to update the cart icon
+            function updateCartIcon() {
+                $('#cartAmountTopRight').text(cartAmount);
+            }
+
+            // Function to increase the quantity in the modal
+            function increaseQuantity(element) {
+                var quantityElement = $(element).siblings('.quantity');
+                var quantity = parseInt(quantityElement.text()) || 1;
+                quantityElement.text(quantity + 1);
+            }
+
+            // Function to decrease the quantity in the modal
+            function decreaseQuantity(element) {
+                var quantityElement = $(element).siblings('.quantity');
+                var quantity = parseInt(quantityElement.text()) || 1;
+                if (quantity > 1) {
+                    quantityElement.text(quantity - 1);
+                }
+            }
+
+            // Function to add an item to the cart dropdown
+            function addItemToDropdown(itemName, itemPrice, quantity) {
+                var itemIndex = cartItems.length; // index of the last added item
+                $('#cartDropdown .cart-content').append(
+                    '<div class="cart-item" data-item-index="' + itemIndex + '">' +
+                    '<div class="cart-item-details">' +
+                    '<h4>' + itemName + '</h4>' +
+                    '<p>Quantity: ' + quantity + ' - $' + (itemPrice * quantity).toFixed(2) + '</p>' +
+                    '</div>' +
+                    '<div class="clear-item" data-item-index="' + itemIndex + '">Clear</div>' +
+                    '</div>'
+                );
+            }
+
+            // Function to display a Bootstrap 5 toast
+            function showToast(message) {
+                var toast = new bootstrap.Toast(document.getElementById('myToast'), {
+                    autohide: true,
+                    delay: 2000, // 2 seconds
+                });
+                var toastBody = document.querySelector('.toast-body');
+                toastBody.innerHTML = message;
+                toast.show();
+            }
+
+            // Click event for cart amount or icon
+            $('#cartAmount, .fa-shopping-cart').on('click', function () {
+                // Toggle the cart dropdown
+                $('#cartDropdown').toggle();
+            });
+
+            // Event to close the modal and reset quantity when hidden
+            $('#productModal').on('hidden.bs.modal', function () {
+                $('.quantity').text(1); // Reset quantity to 1 when modal is hidden
+            });
+
+            // Event to clear an item from the cart
+            $(document).on('click', '.clear-item', function () {
+                // Get the item index from the data attribute
+                var itemIndex = $(this).data('item-index');
+
+                // Remove the item from the cart
+                removeItemFromCart(itemIndex);
+            });
+
+            // Function to remove an item from the cart
+            function removeItemFromCart(itemIndex) {
+                // Remove the item from the cart content
+                $('#cartDropdown .cart-content .cart-item[data-item-index="' + itemIndex + '"]').remove();
+
+                // Update the cart amount
+                cartAmount = $('#cartDropdown .cart-content .cart-item').length;
+                updateCartIcon();
+            }
+        });
+    </script>
+    
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+    <header>
+        <div class="nav-1 main-navbar shadow-sm sticky-top">
+            <div class="top-navbar">
+                <div class="logo-1 container-fluid">
+                    <div class="c.1 row">
+                        <div class="col-md-2  d-sm-block
+                        col-sm-2 d-md-block d-lg-block">
+                            <img class="logo-png" src="logo.png" alt="">
+                        </div>
+                        <div class="search-1 search-bar  myauto col-md-5">
+                            <form role="search">
+                                <div class="input-group text-white ">
+                                    <input type="search" placeholder="Search your product" style="    background: none;"
+                                        class="form-control search-nav">
+                                    <button class="btn" style="  background: none;border-color: #fdfbfb;" type="submit">
+                                        <i class="fa fa-search " style="color: white;"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="icon-1 icons col-md-5 myauto">
+                            <ul class="nav justify-content-end">
+
+
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link " href="#" id="navbarDropdown" role="button"
+                                        aria-expanded="false">
+                                        <i class="fa fa-user"></i>
+                                    </a>
+                                    
+                                   
+                                </li>
+
+                                <li class="nav-item myauto">
+                                    <div class="d-flex text-white">
+                                        <div class="position-relative">
+                                            <a class="nav-link" href="#" id="cartIcon">
+                                                <i class="fa fa-shopping-cart"></i>
+                                                <span class="cart-count" id="cartAmountTopRight">0</span>
+                                            </a>
+                                            <!-- <p class="cart-price-box " id="cartAmountTopRight">0</p> -->
+                                        
+                                            <!-- Cart Dropdown -->
+                                            <div id="cartDropdown" class="cart-dropdown">
+                                                <div class="cart-content"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        
+                                        
+                                        <!-- Toast container -->
+                                        <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x">
+                                            <div id="myToast" class="toast bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
+                                                <div class="toast-body text-white">
+                                                    Item(s) added successfully
+                                                </div>
+                                            </div>
+                                        </div>
+    
+
+
+
+
+
+                                        <!-- Product Modal -->
+                                        <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="productModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <img class="product-image" src="desperado.jpg"
+                                                                    alt="Product Image">
+                                                            </div>
+                                                            <div class="col-md-6 sty">
+                                                                <h3 id="productName">Crispy Bae</h3>
+                                                                <p>Crispy fried chicken with chipotle sauce..</p>
+                                                                <h3>Category</h3>
+                                                                <p>Burger</p>
+                                                                <h3>PKR</h3>
+                                                                <p id="productPrice">799</p>
+                                                                <div class="counter-btns">
+                                                                    <button class="btn btn-secondary"
+                                                                        onclick="decreaseQuantity(this)">-</button>
+                                                                    <span class="quantity">1</span>
+                                                                    <button class="btn btn-secondary"
+                                                                        onclick="increaseQuantity(this)">+</button>
+                                                                </div>
+                                                                <button class=" btn btn-success add-to-cart">Add
+                                                                    to Cart</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <!-- <div id="cartDropdown" class="cart-dropdown">
+                                            <div class="cart-content"></div>
+                                        </div> -->
+
+
+                                        <script>
+                                            function increaseQuantity(element) {
+                                                var quantityElement = $(element).siblings('.quantity');
+                                                var quantity = parseInt(quantityElement.text()) || 1;
+                                                quantityElement.text(quantity + 1);
+                                            }
+
+                                            function decreaseQuantity(element) {
+                                                var quantityElement = $(element).siblings('.quantity');
+                                                var quantity = parseInt(quantityElement.text()) || 1;
+                                                if (quantity > 1) {
+                                                    quantityElement.text(quantity - 1);
+                                                }
+                                            }
+                                        </script>
+                                        
+
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid bg-white">
+                    <a class="navbar-brand d-block d-sm-block d-md-none d-lg-none" href="#">
+                        MENU
+                    </a>
+                    <button class="navbar-toggler " type="button" data-bs-toggle="collaps "
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse bg-white" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="membership.html">MEMBERSHIP</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">CONTACT</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <br><br>
+
+    <!-- /next two div in which image or info -->
+    <main>
+
+    
+        <!-- Plans -->
+
+        <div class="container Membership-1">
+            <br>
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s"
+                style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+
+                <h1>Membership Plans</h1>
+            </div>
+            <br>
+        </div>
+
+        <!-- Membership plas -->
+
+        <div class="container-fluid  my-5 card-1">
+            <div class="row justify-content-md-center">
+                <div class="membership-plan col-12 col-lg-3 mx-3 mb-3">
+                    <h2 class="plan-heading basic">Basic</h2>
+                    <p class="plan-price">500</p>
+                    <p style="font-weight: 700; font-size: x-large;">PER MONTH</p>
+                    <ul class="plan-benefits">
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                    </ul>
+                    <button class="add-to-cart-btn">
+                        <p class="sm">Add to Cart</p>
+                    </button>
+                </div>
+
+                <div class="membership-plan col-12 col-lg-3 mx-3 mb-3">
+                    <h2 class="plan-heading standard">Standard</h2>
+                    <p class="plan-price">700</p>
+                    <p style="font-weight: 700; font-size: x-large;">PER MONTH</p>
+                    <ul class="plan-benefits">
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                    </ul>
+                    <button class="add-to-cart-btn">
+                        <p class="sm">Add to Cart</p>
+                    </button>
+                </div>
+
+                <div class="membership-plan col-12  col-lg-3 mx-3 mb-3">
+                    <h2 class="plan-heading premier">Premier</h2>
+                    <p class="plan-price" style="color: #feb902;">900</p>
+                    <p style="font-weight: 700; font-size: x-large;">PER MONTH</p>
+                    <ul class="plan-benefits">
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                        <li><span class="checkmark">&#10003;</span> Lorem ipsum dolor sit amet consectetur,elit.
+                        </li>
+                    </ul>
+                    <button class="add-to-cart-btn">
+                        <p class="sm">Add to Cart</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- last-banner -->
+
+        <div class="col-12 col-lg-12 d-none d-sm-block">
+            <img src="last banner.jpg" width="100%" alt="">
+        </div>
+
+        <!-- footer -->
+
+        <footer class="py-4 f-l text-white text-center">
+
+            <div class="container">
+                <!-- Footer -->
+                <footer class="text-center text-lg-start  ">
+                    <!-- Section: Social media -->
+
+
+                    <!-- Section: Links  -->
+                    <section class="">
+                        <div class="container text-center text-md-start mt-5">
+                            <!-- Grid row -->
+
+                            <div class="row mt-3">
+                                <!-- Grid column -->
+                                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                                    <!-- Content -->
+                                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                                        <!-- Links -->
+                                        <h6 class=" text-dark mb-4" style="font-weight: 700;">
+                                            Support
+                                        </h6>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">Home</a>
+                                        </p>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">work</a>
+                                        </p>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">element</a>
+                                        </p>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">contact</a>
+                                        </p>
+                                        <p class="text-dark">
+                                            <a href="#!" class="text-reset">blog</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+
+                                <!-- Grid column -->
+
+                                <!-- Grid column -->
+
+                                <!-- Grid column -->
+                                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                                    <!-- Links -->
+                                    <h6 class=" text-dark mb-4" style="font-weight: 600;">
+                                        Accounts
+                                    </h6>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">eGrappler.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">greepit.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">wordpress.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">themeforest.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">Free vectors icons</a>
+                                    </p>
+                                </div>
+                                <!-- Grid column -->
+                                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                                    <h6 class=" text-dark  mb-4" style="font-weight: 600;">
+                                        Quick Links
+                                    </h6>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">eGrappler.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">greepit.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">wordpress.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">themeforest.com</a>
+                                    </p>
+                                    <p class="text-dark">
+                                        <a href="#!" class="text-reset">Free vectors icons</a>
+                                    </p>
+                                </div>
+
+
+                                <!-- Grid column -->
+                                <div class="col-md-4 col-lg-3 col-xl-4 mx-auto mb-md-0 mb-4">
+                                    <!-- Links -->
+                                    <h6 class="foot text-dark mb-4" style="font-weight: 600;">Download App</h6>
+                                    <p class="text-muted f-p">Save $3 With App & New User Only</p>
+
+                                    <div class="container-footer pb-0 col-12 col-md-8 col-lg-8 mx-auto">
+                                        <!-- Section: Social media -->
+                                        <section class="mb-4 justify-content-between">
+                                            <!-- Facebook -->
+                                            <img src="qr-code.png" class="card-img-top-f" alt="Image 4">
+
+                                            <!-- Twitter -->
+                                            <img src="apps.png" class="card-img-top-f" alt="Image 4">
+
+
+                                            <!-- Section: Social media -->
+                                        </section>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Section: Links  -->
+                    <!-- Copyright -->
+                </footer>
+                <!-- Footer -->
+            </div>
+        </footer>
+
+
+
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

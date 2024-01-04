@@ -1,0 +1,705 @@
+.main-navbar {
+    border-bottom: 1px solid #ccc;
+}
+
+.main-navbar .top-navbar {
+    background-color: rgb(255, 4, 57, 100);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.logo-png {
+    
+    width: 52%;
+}
+
+.main-navbar .top-navbar .brand-name {
+    color: #fdfbfb;
+}
+
+.main-navbar .top-navbar .nav-link {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.main-navbar .top-navbar .dropdown-menu {
+    padding: 0px 0px;
+    border-radius: 0px;
+}
+
+.main-navbar .top-navbar .dropdown-menu .dropdown-item {
+    padding: 8px 16px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.main-navbar .top-navbar .dropdown-menu .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: #2874f0;
+    font-size: 14px;
+}
+
+.main-navbar .navbar {
+    padding: 0px;
+    background-color: #ddd;
+}
+
+.main-navbar .navbar .nav-item .nav-link {
+    padding: 8px 20px;
+    color: #000;
+    font-size: 15px;
+}
+
+
+
+/* Add more media queries as needed for larger devices */
+
+
+/* for 2nd img or info */
+
+/* CSS for the main product container */
+.product-container {
+    display: flex;
+    align-items: center;
+   /* border: 1px solid #ddd;
+    /* Border around the product container */
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+    padding-left: 10%;
+    
+}
+.s-1 {
+     width: 100%;
+    margin-left: -7%;
+}
+
+/* CSS for the left image container */
+/* CSS for the scrollable section */
+.scrollable-section {
+    background-color: rgb(231, 231, 228);
+    overflow: auto;
+    height: 300px;
+    /* Set the desired height for the scrollable section */
+    margin-bottom: 0%;
+    width: 90%;
+    display: block;
+        margin-top: 0%;
+    border: 1px solid #feb902;
+}
+
+/* CSS for individual product items */
+.product-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+/* CSS for the product image on the left */
+/* .product-image {
+    flex: 1;
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+} */
+
+.product{
+    width: 189%;
+    padding: 0px;
+}
+
+
+/* CSS for the product description on the right */
+.product-description {
+    flex: 2;
+}
+
+.first-head {
+
+    width: 100%;
+    /* text-wrap: nowrap; */
+    padding-left: 0%;
+    border-bottom: 1px, solidrgba(254, 185, 2, 255);
+    border-bottom: 1px solid #feb902;
+    background-color: #feb902;
+    
+}
+
+.btn {
+    margin-left: 20%;
+    border-radius: 18px;
+    font-size: 12px;
+    border-color: rgb(255, 4, 57, 100);
+    
+}
+
+
+/* 3rd poster */
+
+.product-containerr {
+    display: flex;
+    align-items: center;
+    /* border: 1px solid #ccc; */
+    background-color: #fc0537;
+    padding-bottom: 0px;
+    /* margin: 5px; */
+    border-radius: 10px;
+    width: 77%;
+    margin-left: 8%;
+    
+  }
+  
+  .product-image {
+    flex: 0 0 auto;
+    margin-right: 10px;
+  }
+  
+  .product-image img {
+    max-width: 100px; /* Adjust the image size as needed */
+    height: auto;
+    display: block;
+    margin-top: -25%;
+  }
+  
+  .product-details {
+    flex: 1;
+  }
+  
+  .add-to-cart-button {
+    background-color: #feb902;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 5%;
+    cursor: pointer;
+    /* border-radius: 5px; */
+    border-radius: 18px;
+    font-size: 12px;
+    border-color: rgb(255, 4, 57, 100);
+  }
+  
+  .add-to-cart-button:hover {
+    background-color: #e52e1a;
+  }
+
+ 
+  /* <!-- products with image 4rth --> */
+  
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1px;
+    margin: 10px;
+    width: 94%;
+  }
+  
+  .flex-item {
+    flex: 0 0 calc(33.33% - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid rgba(228, 212, 212, 0.404);
+  }
+  
+  .flex-item img {
+    max-width: 100px; /* Adjust image size as needed */
+    height: auto;
+    /* display: block; */
+    display: flex;
+    flex-wrap: wrap;
+    /* margin: 0 auto 10px; Center image and add space below */
+  }
+
+  .flexx-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+    margin: 10px;
+  }
+  
+  .flex-itemm {
+    flex: 0 0 calc(25% - 20px);
+  }
+
+.card-img-top {
+    width: 50%;
+    margin-left: 23%;
+    margin-top: 7%;
+    border: 1px solid rgba(235, 223, 223, 0.692);
+}
+ /* 5th poster */
+
+.product-containerr-5 {
+    display: flex;
+    align-items: center;
+    /* border: 1px solid #ccc; */
+    background-color: #feb902;
+    padding-bottom: 0px;
+    /* margin: 5px; */
+    border-radius: 0px;
+    width: 60%;
+    margin-left: 18%;
+    
+  }
+  
+  .product-image-5 {
+    flex: 0 0 auto;
+    margin-right: 10px;
+  }
+  
+  .product-image-5 img {
+    margin-left: 4%;
+    max-width: 100%;
+    height: 66%;
+    display: block;
+    margin-top: -11%;
+  }
+  
+  .product-details-5 {
+    flex: 1;
+    width: 50%;
+    margin-left: 4%;
+  }
+  .product-5-para{
+    color: #fc0537; 
+    font-weight: 700; 
+    font-size: larger;
+  }
+  .product-5{
+    width: 100%;
+    margin-top: -7px;
+    font-size: x-small;
+  }
+  .add-to-cart-button-5 {
+    background-color: #fc0537;
+    color: #feb902;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 5%;
+    margin-left: 0%;
+    cursor: pointer;
+    /* border-radius: 5px; */
+    border-radius: 15px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    border-color: rgb(255, 4, 57, 100);
+  }
+  
+  .add-to-cart-button:hover {
+    background-color: #0056b3;
+  }
+
+
+  /* membership plans */
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .membership-plans {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  .membership-plan {
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 0px;
+    /* width: 32%; */
+  }
+  .plan-heading {
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+    border-radius: 5px;
+  }
+  
+  .basic {
+    background-color: #feb902;
+  }
+  
+  .standard {
+    background-color: #feb902;
+  }
+  
+  .premier {
+    background-color: #e74c3c;
+  }
+  
+  .plan-price {
+    font-size: 100px;
+    margin: 10px 0;
+    font-family: didot;
+    color: #fc0537;
+  }
+  
+  .plan-benefits {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .plan-benefits li {
+    margin-bottom: 10px;
+  }
+  
+  .checkmark {
+    font-size: 16px;
+    color: #2ecc71;
+    margin-right: 5px;
+  }
+  
+  .add-to-cart-btn {
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding-top: 20px;
+    cursor: pointer;
+    border: 1px solid #00000054; 
+
+  
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #fc0537;
+  }
+
+.container-footer {
+    width: 100%;
+    margin-left: 40%;
+}
+
+/* forothers style whichused inine code */
+  .icons{
+   width: 30%
+  }
+  .search-bar{
+    width: 51%;
+     padding-left: 10%;
+     margin-top: 5px;
+  }
+  /* .scroll{
+    padding-left: 0%;
+    margin-bottom: 4%;
+  } */
+  .bs-1{
+    width: 100%;
+    margin-top: -0px;
+    font-size: x-small;
+  }
+  .forth-para{
+    font-size: x-large;
+  }
+  .b-2{
+    font-size: x-large;
+  }
+  .f-b{
+    background-color:  #fc0537;
+  }
+  
+  .f-3{
+    font-size: x-large;
+  }
+  .card-img-top-f{
+    width: 45%;
+    margin-left: 0%;
+    margin-top: 7%;
+  }
+  .last{
+    width: 100%;
+  }
+    
+  
+  
+ 
+ /* modal */
+       /* Add your CSS styles here */
+       .modal-dialog {
+        max-width: 800px;
+        
+    }
+
+    .modal-body {
+        display: flex;
+    }
+
+    .product-imagee {
+        width: 30%;
+        margin-right: 0px;
+    }
+
+    .product-description {
+        flex-grow: 1;
+        margin-left: 10%;
+      
+    }
+    .sty{
+      color: black;
+    }
+    .counter-btns {
+        display: flex;
+        align-items: center;
+    }
+
+    .counter-btns button {
+        font-size: 10px;
+        padding: 3px 5px;
+        margin: 0 5px;
+    }
+
+    #cartAmount {
+        display: inline-block;
+        margin-left: 10px;
+    }
+    .modal {
+      z-index: 1050; /* or a higher value if needed */
+  }
+  
+  .modal-backdrop {
+    z-index: 200;
+      /* z-index: 1040; or a lower value than the modal */
+      display: none;
+    }
+
+  /* for cart */
+
+/* New styles for the cart dropdown */
+#cartDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+  z-index: 1000;
+  width: 300px;
+  margin-top: 10px; /* Adjust as needed */
+}
+
+.cart-item {
+  padding: 10px;
+  border-bottom: 1px solid rgb(105, 70, 70);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-item img {
+  max-width: 50px;
+  margin-right: 10px;
+}
+
+.cart-item-details {
+  flex-grow: 1;
+}
+
+.cart-item h4 {
+  margin-bottom: 5px;
+}
+
+.cart-item p {
+  margin-bottom: 0;
+}
+
+.cart-item-price {
+  font-weight: bold;
+}
+
+.clear-item {
+  cursor: pointer;
+  color: red;
+}
+
+ 
+/* for responsive */
+
+
+/* Mobile View ********************/
+
+@media (max-width: 568px)
+    and (min-width: 320px)
+    and (-webkit-min-device-pixel-ratio: 2)  {
+
+   .nav-1 {
+    /* width: 63%; */
+    width: 100%;
+   }
+   .logo-1{
+    width: 86%;
+    margin-left: 18%;
+   }
+   .search-1{
+    width: 100%;
+    margin-left: -18%;
+   }
+   .icon-1{
+    width: 73%;
+    margin-top: 10px;
+    margin-left: -16px;
+   }
+   .scroll-image{
+    display: none;
+   }
+   .scroll-1{
+    /* width: 65%; */
+    width: 83%;
+    margin-left: -10%;
+    font-size: x-small;
+   }
+   .head {
+    font-size: medium;
+   }
+   .head-2 {
+    width: 84%;
+    font-size: xx-small;
+    margin-left: 19px;
+   }
+   .baner-1{
+    display: grid;
+    /* width: 62%; */
+    width: 97%;
+    padding-bottom: 9px;
+    padding-left: 3px;
+    padding-top: 31px;
+    margin-left: 1px;
+   }
+   .pro-info{
+    /* width: 78%; */
+    width: 100%;
+    padding-left: 2px;
+    margin-left: 2px;
+    font-size: medium;
+   }
+   .pro-infoo{
+    width: 100%;
+    /* width: 78%; */
+    padding-left: 2px;
+    margin-left: -26px;
+    font-size: medium;
+   }
+   .info-2{
+    font-size: x-small;
+    margin-left: 2px;
+    /* width: 220px; */
+    width: 330%;
+   }
+   .flex-1{
+    /* width: 59%;   */
+    width: 98%;
+    margin-left: 1%;
+    display: inline-block;
+    font-size: xx-small;
+   }
+   .card-title{
+    font-size: small;
+   }
+   .baner-2{
+    /* width: 59%; */
+    width: 96%;
+    padding-bottom: 0px;
+    padding-left: 3px;
+    padding-top: 0px;
+    margin-left: 10px;
+   }
+   .baner-2-img{
+    display: none;
+   }
+   .Membership-1{
+    margin-left: 1%;
+   }
+   .card-1{
+    width: 90%;
+    /* width: 54%; */
+   }
+   .head-3 {
+    width: 84%;
+    font-size: xx-small;
+    margin-left: 19px;
+   }
+   .sm{
+    width: auto;
+   }
+   
+   .img-m {
+    display: none;
+   }
+   
+   .f-p{
+   
+    font-size: small;
+   }
+   .f-img{
+    width: 20px;
+   }
+   .card-img-top-f{
+    width: 17%;
+    margin-left: 0%;
+    margin-top: 7%;
+  }
+  .i-f{
+    font-size: xx-small;
+    width: 81%;
+  }
+
+
+}
+
+
+
+/* Table View ********************/
+
+@media screen and (min-device-width: 768px)
+    and (max-device-width: 1024px) {
+    
+    .b-1{
+      width: 91%;
+      font-size: smaller;
+    }
+    .flex-1{
+      /* width: 59%;   */
+      width: 98%;
+      margin-left: 1%;
+     
+      font-size: x-small;
+     }
+     .card-title{
+      font-size: small;
+     }
+     .b-f{
+      width: 27%;
+      margin-left: 81%;
+      margin-top: -18%;
+     }
+    
+
+    
+    }
+    
+
+
+ @media screen and (min-device-width: 320px)
+    and (-webkit-min-device-pixel-ratio: 2) {
+        
+        
+        
+}
+
+
+  
